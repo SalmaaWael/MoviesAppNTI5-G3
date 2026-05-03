@@ -22,9 +22,6 @@ class WhiteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: 
-        BackButtonIcon(key: Key(AutofillHints.creditCardExpirationDate),)
-      ,
     );
   }
 }
