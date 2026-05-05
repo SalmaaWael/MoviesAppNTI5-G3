@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../../assets_manager/assets_manager.dart';
+import '../../core/assets_manager/assets_manager.dart';
 
 class ListViewHorizontal extends StatelessWidget {
   const ListViewHorizontal({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  SizedBox(
+    return SizedBox(
       height: 250,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
+          itemCount: 10,
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
@@ -26,7 +27,7 @@ class ListViewHorizontal extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         image: const DecorationImage(
-                          image:AssetImage(AssetsManager.movie2),
+                          image: AssetImage(AssetsManager.movie2),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -35,34 +36,35 @@ class ListViewHorizontal extends StatelessWidget {
                     Positioned(
                       left: -15,
                       bottom: -25,
-                      child: Text(
-                        '${index + 1}',
-                        style: const TextStyle(
-                          fontSize: 100,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF2A2A2A),
-                          shadows: [
-                            Shadow(
-                              color: Colors.black87,
-                              offset: Offset(2, 2),
-                              blurRadius: 4,
+                      child: Stack(
+                        children: [
+                          Text(
+                            '${index + 1}',
+                            style: TextStyle(
+                              fontSize: 110,
+                              fontWeight: FontWeight.bold,
+                              foreground: Paint()
+                                ..style = PaintingStyle.stroke
+                                ..strokeWidth = 3
+                                ..color = const Color(0xFF0296E5),
                             ),
-                            Shadow(
-                              color: Colors.white24,
-                              offset: Offset(-1, -1),
-                              blurRadius: 2,
+                          ),
+                          Text(
+                            '${index + 1}',
+                            style: const TextStyle(
+                              fontSize: 110,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF1E2833),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
             );
-          }
-
-      ),
+          }),
     );
   }
 }
