@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../assets_manager/assets_manager.dart';
+
+import '../../core/assets_manager/assets_manager.dart';
 
 class PopularMoviesGrid extends StatelessWidget {
   const PopularMoviesGrid({super.key});
@@ -14,14 +15,14 @@ class PopularMoviesGrid extends StatelessWidget {
 
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
         childAspectRatio: 0.7,
       ),
 
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(2.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Container(
