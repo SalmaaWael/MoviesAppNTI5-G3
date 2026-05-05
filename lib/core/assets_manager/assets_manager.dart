@@ -1,5 +1,6 @@
-class ImagesManager{
+class AssetsManager{
   static const String base = "assets/images";
+  static const String avilableNow="$base/Available Now.png";
   static const String splashScreen="$base/splash_screen_image.png";
   static const String searchScreen="$base/search_screen_image.png";
   static const String wishListScreen="$base/wishlist_screen_image.png";
