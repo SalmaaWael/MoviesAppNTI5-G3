@@ -1,70 +1,83 @@
 import 'package:flutter/material.dart';
-
-import '../../core/assets_manager/assets_manager.dart';
+import 'package:movies_app/core/colors_manager/colors_manager.dart';
+import '../../models/movie_response.dart';
 
 class ListViewHorizontal extends StatelessWidget {
-  const ListViewHorizontal({super.key});
+  final Future<MovieResponse> apiFuture;
+
+  const ListViewHorizontal({super.key, required this.apiFuture});
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 250,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                width: 140,
-                margin: const EdgeInsets.only(right: 16),
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Container(
-                      width: 140,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        image: const DecorationImage(
-                          image: AssetImage(AssetsManager.movie2),
-                          fit: BoxFit.cover,
+    return FutureBuilder<MovieResponse>(
+      future: apiFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const SizedBox(
+            height: 250,
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
+
+        if (snapshot.hasData) {
+          var moviesList = snapshot.data?.results ?? [];
+
+          if (moviesList.isEmpty) return const SizedBox();
+
+          return SizedBox(
+            height: 250,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: moviesList.length,
+              itemBuilder: (context, index) {
+                var movie = moviesList[index];
+
+                return Container(
+                  width: 170,
+                  margin: const EdgeInsets.only(right: 16),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 30, bottom: 20),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.network(
+                            'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                            width: 140,
+                            height: 210,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                    ),
-
-                    Positioned(
-                      left: -15,
-                      bottom: -25,
-                      child: Stack(
-                        children: [
-                          Text(
-                            '${index + 1}',
-                            style: TextStyle(
-                              fontSize: 110,
-                              fontWeight: FontWeight.bold,
-                              foreground: Paint()
-                                ..style = PaintingStyle.stroke
-                                ..strokeWidth = 3
-                                ..color = const Color(0xFF0296E5),
-                            ),
+                      Positioned(
+                        left: -10,
+                        bottom: -35,
+                        child: Text(
+                          '${index + 1}',
+                          style: const TextStyle(
+                            fontSize: 130,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF242A32),
+                            shadows: [
+                              Shadow(
+                                color: ColorsManager.selectedIcons,
+                                offset: Offset(2, 2),
+                                blurRadius: 4,
+                              ),
+                            ],
                           ),
-                          Text(
-                            '${index + 1}',
-                            style: const TextStyle(
-                              fontSize: 110,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF1E2833),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }),
+                    ],
+                  ),
+                );
+              },
+            ),
+          );
+        }
+        return const SizedBox();
+      },
     );
   }
 }

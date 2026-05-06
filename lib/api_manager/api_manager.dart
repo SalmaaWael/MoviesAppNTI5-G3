@@ -21,4 +21,33 @@ class ApiManager {
       throw Exception('Error fetching data: $e');
     }
   }
+  static Future<MovieResponse> getUpcomingMovies() async {
+    var url = Uri.parse('$baseUrl/movie/upcoming?api_key=$apiKey');
+    try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        return MovieResponse.fromJson(json);
+      } else {
+        throw Exception('Failed to load upcoming movies');
+      }
+    } catch (e) {
+      throw Exception('Error fetching data: $e');
+    }
+  }
+
+  static Future<MovieResponse> getTopRatedMovies() async {
+    var url = Uri.parse('$baseUrl/movie/top_rated?api_key=$apiKey');
+    try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        return MovieResponse.fromJson(json);
+      } else {
+        throw Exception('Failed to load top rated movies');
+      }
+    } catch (e) {
+      throw Exception('Error fetching data: $e');
+    }
+  }
 }
