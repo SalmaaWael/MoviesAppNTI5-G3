@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/screens/movie_details.dart';
 
 import '../../api_manager/api_manager.dart';
 import '../../models/movie_response.dart';
@@ -10,7 +11,6 @@ class PopularMoviesGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<MovieResponse>(
       future: ApiManager.getPopularMovies(),
-
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -30,7 +30,7 @@ class PopularMoviesGrid extends StatelessWidget {
 
           if (moviesList.isEmpty) {
             return const Center(
-              child: Text('There is no movies now', style: TextStyle(color: Colors.white)),
+              child: Text('There is no movies now', style: const TextStyle(color: Colors.white)),
             );
           }
           return GridView.builder(
@@ -46,13 +46,23 @@ class PopularMoviesGrid extends StatelessWidget {
             itemBuilder: (context, index) {
               var movie = moviesList[index];
 
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage('https://image.tmdb.org/t/p/w500${movie.posterPath}'),
-                      fit: BoxFit.cover,
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MovieDetailsScreen(movie: movie),
+                    ),
+                  );
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage('https://image.tmdb.org/t/p/w500${movie.posterPath}'),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
