@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/core/colors_manager/colors_manager.dart';
 import '../home_screen/bottom_navigation_bar.dart';
 import '../home_screen/home_screen.dart';
+import '../search_screen/search_screen.dart';
 import '../watchlist_screen/watchlist_screen.dart';
 
 class MainLayout extends StatefulWidget {
@@ -18,7 +19,7 @@ class _MainLayoutState extends State<MainLayout> {
 
   List<Widget> screens = [
     const HomeScreen(),
-    const Center(child: Text('Search Screen', style: TextStyle(color: Colors.white, fontSize: 24))),
+    const SearchScreen(),
     const WatchlistScreen(),
   ];
 
