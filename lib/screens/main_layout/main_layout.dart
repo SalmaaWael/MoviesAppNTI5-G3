@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/colors_manager/colors_manager.dart';
-
+import '../home_screen/bottom_navigation_bar.dart';
 import '../home_screen/home_screen.dart';
-
+import '../watchlist_screen/watchlist_screen.dart';
 
 class MainLayout extends StatefulWidget {
+  static const String routeName = 'main_layout';
+
   const MainLayout({super.key});
 
   @override
@@ -17,48 +19,21 @@ class _MainLayoutState extends State<MainLayout> {
   List<Widget> screens = [
     const HomeScreen(),
     const Center(child: Text('Search Screen', style: TextStyle(color: Colors.white, fontSize: 24))),
-    const Center(child: Text('Watch List Screen', style: TextStyle(color: Colors.white, fontSize: 24))),
+    const WatchlistScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsManager.background,
-
       body: screens[_currentIndex],
-
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor:  ColorsManager.background,
-        selectedItemColor: ColorsManager.selectedIcons,
-        unselectedItemColor: ColorsManager.unSelectedIcons,
-
-        type: BottomNavigationBarType.fixed,
-        showUnselectedLabels: true,
-
+      bottomNavigationBar: CustomBottomNavBar(
         currentIndex: _currentIndex,
-
         onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
         },
-
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark_outline),
-            activeIcon: Icon(Icons.bookmark),
-            label: 'Watch list',
-          ),
-        ],
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/colors_manager/colors_manager.dart';
-import 'package:movies_app/screens/movie_details.dart';
+import 'package:movies_app/screens/movie_details/movie_details.dart';
 import '../../models/movie_response.dart';
 
 class ListViewHorizontal extends StatelessWidget {

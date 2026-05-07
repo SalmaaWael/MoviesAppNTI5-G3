@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/core/colors_manager/colors_manager.dart';
 import 'package:movies_app/screens/home_screen/popular_movies_grid.dart';
 import '../../api_manager/api_manager.dart';
-import 'bottom_navigation_bar.dart';
 import 'list_view_horizontal.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-  static const String routeName = "HomeScreen";
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -51,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: const CustomBottomNavBar(),
       ),
     );
   }

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
-class CustomBottomNavBar extends StatefulWidget {
-  const CustomBottomNavBar({super.key});
+class CustomBottomNavBar extends StatelessWidget {
+  final int currentIndex;
+  final Function(int) onTap;
 
-  @override
-  State<CustomBottomNavBar> createState() => _CustomBottomNavBarState();
-}
-
-class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
-  int _currentIndex = 0;
+  const CustomBottomNavBar({
+    super.key,
+    required this.currentIndex,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70,
       decoration: const BoxDecoration(
         color: Color(0xFF242A32),
         border: Border(
@@ -29,12 +28,8 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
         elevation: 0,
         selectedItemColor: const Color(0xFF0296E5),
         unselectedItemColor: const Color(0xFF67686D),
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
+        currentIndex: currentIndex,
+        onTap: onTap,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
@@ -47,6 +42,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.bookmark_outline),
+            activeIcon: Icon(Icons.bookmark),
             label: 'Watch list',
           ),
         ],

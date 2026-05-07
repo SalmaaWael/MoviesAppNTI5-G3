@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/colors_manager/colors_manager.dart';
 import 'package:movies_app/screens/home_screen/popular_movies_grid.dart';
+import '../../firestore_manager/firestore_manager.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   final dynamic movie;
@@ -24,9 +25,25 @@ class MovieDetailsScreen extends StatelessWidget {
         ),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.bookmark, color: Colors.white),
-            onPressed: () {},
+          StreamBuilder<bool>(
+            stream: FirestoreManager.isInWatchlist(movie.id),
+            builder: (context, snapshot) {
+              bool isBookmarked = snapshot.data ?? false;
+              return IconButton(
+                icon: Icon(
+                  isBookmarked ? Icons.bookmark : Icons.bookmark_border,
+                  color: isBookmarked ? ColorsManager.orange : Colors.white,
+                  size: 28,
+                ),
+                onPressed: () {
+                  if (isBookmarked) {
+                    FirestoreManager.removeFromWatchlist(movie.id);
+                  } else {
+                    FirestoreManager.addToWatchlist(movie);
+                  }
+                },
+              );
+            },
           ),
         ],
       ),
@@ -137,8 +154,8 @@ class MovieDetailsScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
               child: PopularMoviesGrid(),
             ),
             const SizedBox(height: 20),

@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +5,7 @@ import 'package:movies_app/core/colors_manager/colors_manager.dart';
 import 'package:movies_app/widgets/text_form_feild.dart';
 
 import '../../core/utils/dialog_app.dart';
-import '../../screens/home_screen/home_screen.dart';
+import '../../screens/main_layout/main_layout.dart';
 import '../../widgets/material_buttom.dart';
 import '../register/register_screen.dart';
 
@@ -151,7 +150,7 @@ class LoginScreen extends StatelessWidget {
           password: password
       );
       Navigator.pop(context);
-      Navigator.of(context).pushNamed(HomeScreen.routeName);
+      Navigator.pushReplacementNamed(context, MainLayout.routeName);
     } on FirebaseAuthException catch (e) {
       Navigator.of(context).pop();
 
