@@ -7,6 +7,7 @@ import 'list_view_horizontal.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+  static const String routeName = "HomeScreen";
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
